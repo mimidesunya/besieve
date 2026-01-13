@@ -1,0 +1,14 @@
+Version=1
+AutoSorting=1
+OnlyRead=0
+OnlyOneFolder=1
+:Begin "
+!M:45bee44e.mb\#account#INBOX[1f].Print[1].ini
+@0:Subject:Invoice	O	I
+$O:Sort=1
+:End "
+:Begin "
+!M:45bee44e.mb\!Trash\
+@0:X-Spam-Flag:YES	O	I
+$O:Sort=1
+:End "

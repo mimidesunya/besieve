@@ -1,0 +1,10 @@
+[
+    {
+        "account": "user1@example.com",
+        "path": "I:\\Becky!\\MailBox\\user1.mb"
+    },
+    {
+        "account": "user2@example.com",
+        "path": "I:\\Becky!\\MailBox\\user2.mb"
+    }
+]

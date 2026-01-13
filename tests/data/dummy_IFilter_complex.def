@@ -1,0 +1,34 @@
+Version=1
+AutoSorting=1
+OnlyRead=0
+OnlyOneFolder=1
+:Begin "RegEx Rule"
+!M:45bee44e.mb\#account#INBOX[1f].RegEx[2].ini
+@0:Subject:^[0-9]+$	O	IR
+$O:Sort=1
+:End "RegEx Rule"
+:Begin "Prefix Rule"
+!M:45bee44e.mb\#account#INBOX[1f].Prefix[3].ini
+@0:Subject:Pre	O	IT
+$O:Sort=1
+:End "Prefix Rule"
+:Begin "Body Rule"
+!M:45bee44e.mb\#account#INBOX[1f].Body[4].ini
+@0:[body]:Keyword	O	I
+$O:Sort=1
+:End "Body Rule"
+:Begin "Case Sensitive"
+!M:45bee44e.mb\#account#INBOX[1f].Case[5].ini
+@0:Subject:Sensitive	O	
+$O:Sort=1
+:End "Case Sensitive"
+:Begin "Delete Action"
+!D
+@0:X-Spam:YES	O	I
+$O:Sort=1
+:End "Delete Action"
+:Begin "Copy Action"
+!M:45bee44e.mb\#account#INBOX[1f].Copy[6].ini
+@0:Subject:CopyMe	O	I
+$O:Sort=0
+:End "Copy Action"
