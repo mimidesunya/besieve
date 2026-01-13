@@ -18,12 +18,20 @@
 
 ## インストール
 
+### GitHub からセットアップ
+
+```powershell
+# リポジトリをクローン
+git clone https://github.com/mimidesunya/besieve.git
+cd besieve
+
+# パッケージとしてインストール
+pip install -e .
+```
+
 ### pip でインストール（推奨）
 
 ```powershell
-# パッケージとしてインストール
-pip install -e .
-
 # CLIコマンドが使えるようになります
 becky2sieve --help
 sieve2becky --help
