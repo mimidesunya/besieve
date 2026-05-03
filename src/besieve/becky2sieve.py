@@ -3,6 +3,8 @@ import re
 import base64
 import sys
 
+TRASH_MAILBOX = "INBOX.Trash"
+
 # Modified UTF-7 (IMAPフォルダ名) をデコードする
 def modified_utf7_decode(s):
     res = []
@@ -38,7 +40,7 @@ def decode_folder_path(raw_path):
     
     # 特殊ケース
     if '!Trash' in raw_path or '!Trash' in filename:
-        return "Trash"
+        return TRASH_MAILBOX
 
     if filename.endswith('.ini'):
         filename = filename[:-4]
@@ -253,13 +255,8 @@ def rules_to_sieve_string(rules):
             
         output.append(f"if {cond_str} {{")
         
-        if folder and folder != "Trash": 
+        if folder: 
             output.append(f'    fileinto "{folder}";')
-        elif folder == "Trash":
-             # Trash は通常ゴミ箱へ移動または破棄
-             # SieveにTrashフォルダがあれば fileinto "Trash"
-             # "Delete from Server" (!D) の場合は discard
-             output.append(f'    fileinto "Trash";')
              
         for act in actions:
             if act == 'discard':

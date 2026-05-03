@@ -4,6 +4,8 @@ import base64
 import glob
 import sys
 
+TRASH_MAILBOXES = {"Trash", "INBOX.Trash"}
+
 # Modified UTF-7 (IMAPフォルダ名) をデコードする
 def modified_utf7_decode(s):
     res = []
@@ -39,7 +41,7 @@ def decode_folder_path(raw_path):
     
     # 特殊ケース
     if '!Trash' in raw_path or '!Trash' in filename:
-        return "Trash"
+        return "INBOX.Trash"
     if filename.endswith('.ini'):
         filename = filename[:-4]
     
@@ -257,6 +259,8 @@ def parse_sieve_content(content):
                     m = re.search(r'fileinto "([^"]+)"', body)
                     if m:
                         folder = m.group(1)
+                        if folder in TRASH_MAILBOXES:
+                            folder = "INBOX.Trash"
                 elif body == 'discard;':
                     actions.append('discard')
                 elif body == 'keep;':
@@ -282,13 +286,13 @@ def generate_becky_string(rules, folder_map):
         physical = None
         
         # ターゲットフォルダのパスを決定
-        if folder == 'Trash':
+        if folder in TRASH_MAILBOXES:
             physical = "45bee44e.mb\\!Trash\\"
         elif folder:
             physical = folder_map.get(folder)
         
         # フォールバック
-        if not physical and folder == 'Trash':
+        if not physical and folder in TRASH_MAILBOXES:
              physical = "45bee44e.mb\\!Trash\\"
 
         # 削除アクション (!D) かどうか

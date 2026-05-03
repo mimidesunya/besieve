@@ -29,8 +29,8 @@ class TestConversion(unittest.TestCase):
         self.assertEqual(decoded, 'INBOX.印刷')
         
         # Test Trash
-        self.assertEqual(sieve2becky.decode_folder_path('!Trash'), 'Trash')
-        self.assertEqual(sieve2becky.decode_folder_path('directory/!Trash'), 'Trash')
+        self.assertEqual(sieve2becky.decode_folder_path('!Trash'), 'INBOX.Trash')
+        self.assertEqual(sieve2becky.decode_folder_path('directory/!Trash'), 'INBOX.Trash')
 
     def test_becky_flags_parsing(self):
         lines = ["@0:From:example.com\tO\tI"]
@@ -53,7 +53,7 @@ class TestConversion(unittest.TestCase):
         # Verify content
         print(f"DEBUG: sieve_code={sieve_code}")
         self.assertIn('INBOX.Print', sieve_code)
-        self.assertIn('Trash', sieve_code)
+        self.assertIn('INBOX.Trash', sieve_code)
         
         # Round trip check locally
         reverted_rules = sieve2becky.parse_sieve_content(sieve_code)
